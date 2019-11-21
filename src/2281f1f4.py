@@ -32,7 +32,8 @@ class ARC:
 			else:
 				print('wrong')
 			# cmap = matplotlib.colors.LinearSegmentedColormap('my_colormap', segmentdata=cdict,N=256)
-			plt.matshow(result_data, cmap=ListedColormap(['black', 'red', 'grey']))
+			plt.matshow(result_data,  vmin=0, vmax=9, cmap=ListedColormap(
+				['#000000', '#0074D9', '#FF4136','#2ECC40','#FFDC00','#AAAAAA','#F012BE','#FF851B','#7FDBFF','#870C25']))
 			plt.show()
 arc = ARC()
 data = arc.read_data(filename = "data/training/2281f1f4.json")
