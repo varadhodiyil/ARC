@@ -15,7 +15,7 @@ class ARC:
 	def read_train(self, json_data):
 		for line in enumerate(json_data['train']):
 			input = line[1]['input']
-			output = line[1]['output']
+			# output = line[1]['output']
 			inputArr = np.asfarray(input, dtype=int)
 			# outputArr = np.asfarray(output, dtype=int)
 			print(inputArr)
@@ -43,10 +43,23 @@ class ARC:
 			# for i,j in itertools.product(range(1,11), range(1,11)):
 			# 	print(str(i) + ":" + str(j))
 			# cmap = matplotlib.colors.LinearSegmentedColormap('my_colormap', segmentdata=cdict,N=256)
-			plt.matshow(result_arr, vmin=0, vmax=8, cmap=ListedColormap(
+			fig, axes = plt.subplots(ncols=2, figsize=(8,8))
+			ax1, ax2 = axes
+
+			ax1.matshow(inputArr, vmin=0, vmax=8,  cmap=ListedColormap(
 				['#000000', '#0074D9', '#FF4136','#2ECC40','#FFDC00','#AAAAAA','#F012BE','#FF851B','#7FDBFF','#870C25']))
-			plt.colorbar()
+			ax2.matshow(result_arr, vmin=0, vmax=8, cmap=ListedColormap(
+				['#000000', '#0074D9', '#FF4136','#2ECC40','#FFDC00','#AAAAAA','#F012BE','#FF851B','#7FDBFF','#870C25']))
+			# plt.colorbar()
+			ax1.set_xticks(np.arange(-.5, 3, 1), minor=True)
+			ax1.set_yticks(np.arange(-.5, 3, 1), minor=True)
+			# ax1.Text('Inut')
+			ax2.set_xticks(np.arange(-.5, 6, 1), minor=True)
+			ax2.set_yticks(np.arange(-.5, 6, 1), minor=True)
+			ax1.grid(which='minor', color='w', linestyle='-', linewidth=0.5)
+			ax2.grid(which='minor', color='w', linestyle='-', linewidth=0.5)
 			plt.show()
+			
 arc = ARC()
 data = arc.read_data(filename = "data/training/d13f3404.json")
 
