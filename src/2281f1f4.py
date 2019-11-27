@@ -21,7 +21,7 @@ class ARC:
 			print(inputArr)
 			column_index = np.nonzero(inputArr[0,0:])[0]
 			row_index = np.nonzero(inputArr[0:,9])[0]
-			result_data = inputArr
+			result_data = np.copy(inputArr)
 			for i,j in itertools.product(row_index.tolist(), column_index.tolist()):
 				result_data[i,j] = 2
 			print(result_data)
