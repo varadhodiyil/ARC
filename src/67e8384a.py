@@ -11,30 +11,51 @@ Created on Wed Nov 20 15:48:49 2019
 import numpy as np
 import json
 
-#arr1 = [[1, 6, 6], [5, 2, 2], [2, 2, 2]]
-arr1 = [[5, 3, 4], [3, 4, 5], [3, 4, 4]]
 
 
-c = [a + list(np.flip(np.asarray(a))) for i,a  in enumerate(arr1) ]
-#d = [a + list(np.flip(np.asarray(a))) for i,a  in enumerate(arr1) ]
-#d = (np.flip(np.asarray(c)))
-#print(np.concatenate(c,d))
-print("C",c)
-final = np.concatenate((c, np.flip(c))).tolist()
-print(np.concatenate((c, np.flip(c))))
-print(json.dumps(final))
+class ARC:
+    
+    def read_data(self, filename):
+        data = open(filename, 'r')
+        json_data = json.load(data)
+        #print(json_data)
+        return json_data
+    
+    def read_train(self, json_data):
+        for line in enumerate(json_data['train']):
+            inputData = line[1]['input']
+            outputData = line[1]['output']
+            inputArr = np.asfarray(inputData, dtype=int)
+            print(inputArr)
+            outputArr = np.asfarray(outputData, dtype=int)
+            result_data = [list(a) + list(np.flip(a)) for i,a  in enumerate(inputArr) ]
+            result_data = np.asfarray(result_data,dtype=int)
+            #final = np.concatenate((inputArr, np.flip(inputArr))).tolist()
+            print(result_data)
+            #print(final)
+            
+            #print(outputArr)
+  
+            
+            
+arc = ARC()
+data = arc.read_data(filename = "67e8384a.json")
+arc.read_train(data)
+print('done')
 
 
-"""
-{"test": 
-[{"input": [[1, 6, 6], [5, 2, 2], [2, 2, 2]], 
-"output": [[1, 6, 6, 6, 6, 1], [5, 2, 2, 2, 2, 5], [2, 2, 2, 2, 2, 2], 
-		   [2, 2, 2, 2, 2, 2], [5, 2, 2, 2, 2, 5], [1, 6, 6, 6, 6, 1]]}],
-"""
 
-"""
-"train": 
-[{"input": [[5, 3, 4], [3, 4, 5], [3, 4, 4]], 
-"output":  [[5, 3, 4, 4, 3, 5], [3, 4, 5, 5, 4, 3], [3, 4, 4, 4, 4, 3], 
-            [3, 4, 4, 4, 4, 3], [3, 4, 5, 5, 4, 3], [5, 3, 4, 4, 3, 5]]},
-"""
+
+
+
+
+
+
+
+
+
+
+
+
+
+
