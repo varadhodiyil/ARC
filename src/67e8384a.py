@@ -6,8 +6,6 @@ Created on Wed Nov 20 15:48:49 2019
 """
 
 
-
-
 import numpy as np
 import json
 
@@ -15,11 +13,11 @@ import json
 arr1 = [[5, 3, 4], [3, 4, 5], [3, 4, 4]]
 
 
-c = [a + list(np.flip(np.asarray(a))) for i,a  in enumerate(arr1) ]
+c = [a + list(np.flip(np.asarray(a))) for i, a in enumerate(arr1)]
 #d = [a + list(np.flip(np.asarray(a))) for i,a  in enumerate(arr1) ]
 #d = (np.flip(np.asarray(c)))
-#print(np.concatenate(c,d))
-print("C",c)
+# print(np.concatenate(c,d))
+print("C", c)
 final = np.concatenate((c, np.flip(c))).tolist()
 print(np.concatenate((c, np.flip(c))))
 print(json.dumps(final))
