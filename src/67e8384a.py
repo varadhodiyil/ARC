@@ -6,8 +6,6 @@ Created on Wed Nov 20 15:48:49 2019
 """
 
 
-
-
 import numpy as np
 import json
 
