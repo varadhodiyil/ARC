@@ -17,6 +17,7 @@ class DataUtils():
         self.in_file = in_file
 
     def read_data(self, in_file=None):
+        print(self.in_file, os.path.abspath(self.in_file))
         if self.in_file is None and in_file is None:
             raise MyExceptions("Please specify input file please")
         data_file = self.in_file if self.in_file else in_file
