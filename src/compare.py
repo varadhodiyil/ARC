@@ -6,7 +6,7 @@ r = open('2.json','r')
 test_file = json.load(r)
 
 # test_file_str = json.dumps(test_file,indent=4)
-for r,_,files in os.walk('data/evaluation'):
+for r,_,files in os.walk('data/training'):
     for f in files:
 
         # 
