@@ -5,45 +5,40 @@ import sys
 from data_utils import DataUtils, MyExceptions
 from display_colour_image import DisplayColourImage
 
+def solve(input_array, out_array=None, graphics=False):
+    assert type(input_array) == np.ndarray
+    column_index = np.nonzero(input_array[0, 0:])[0]
+    row_index = np.nonzero(input_array[0:, 9])[0]
+    output_array = np.copy(input_array)
+    for i, j in itertools.product(row_index.tolist(), column_index.tolist()):
+        output_array[i, j] = 2
+    # print(output_array)
+    if graphics:
+        DisplayColourImage("Solution for 2281f1f4",
+                           input_array, output_array).display_data()
+    return output_array
 
-class ARC:
+def main(path , graphics):
 
-    def __init__(self, display_image=False, path=None):
-        self.display_image = display_image
-        self.path = path
-        self.train()
-        
-    def train(self):
-        data = DataUtils(in_file=path)
-        train, test = data.get_Train_Test()
-        json_name = path.split("\\")[len(path.split("\\"))-1]
-        for _t in train + test:
-            input_data, output_data = _t['input'], _t['output']
-            input_array, output_array = np.asfarray(input_data), np.asfarray(output_data)
-            result_array = self.solve(input_array)
-            print('Input Grid')
-            print(input_array)
-            print('Output Grid')
-            print(output_array)
-            if (display_image):
-                d = DisplayColourImage(
-                    name=json_name, input_array=input_array, output_array=result_array)
-                d.display_data()
+    t = DataUtils(path)
+    train, test = t.train, t.test
+    for _t in train + test:
+        inp, out = _t['input'], _t['output']
+        inp, out = np.asarray(inp), np.asarray(out)
+        output_array = solve(inp, out, graphics)
+        print(output_array)
+
+if __name__ == "__main__":
+    # main()
+    import sys
+    if len(sys.argv) < 2:
+        raise MyExceptions("Please Specify a valid file path")
+    else:
+        path = sys.argv[1]
+		
+        graphics = sys.argv[2] if len(sys.argv) ==3 else False
+        main(path, graphics)
+
+
     
-    def solve(self, input_array):
-        column_index = np.nonzero(input_array[0, 0:])[0]
-        row_index = np.nonzero(input_array[0:, 9])[0]
-        output_array = np.copy(input_array)
-        for i, j in itertools.product(row_index.tolist(), column_index.tolist()):
-            output_array[i, j] = 2
-        return output_array
-
-if (len(sys.argv) < 2):
-    raise MyExceptions("Please provide path in the command line python <python-filename> <json-path> <display-image>")
-else:
-    path = sys.argv[1]
-display_image = False
-if(len(sys.argv) > 2):
-    display_image = sys.argv[2]
-arc = ARC(display_image = display_image, path = path)
 
