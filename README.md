@@ -11,10 +11,11 @@ As a reminder, a test-taker is said to solve a task when, upon seeing the task f
 
 ## Task file format
 
-The `data` directory contains two subdirectories:
+The `data` directory contains three subdirectories:
 
 - `data/training`: contains the task files for training (400 tasks). Use these to prototype your algorithm or to train your algorithm to acquire ARC-relevant cognitive priors.
 - `data/evaluation`: contains the task files for evaluation (400 tasks). Use these to evaluate your final algorithm. To ensure fair evaluation results, do not leak information from the evaluation set into your algorithm (e.g. by looking at the evaluation tasks yourself during development, or by repeatedly modifying an algorithm while using its evaluation score as feedback).
+- data/src : contains solution file for 4 tasks. solve method is introduced in all solution files. From the task json, input values are read from both train and test. Input values are send to solve method as ndarray and output is returned as a ndarray.
 
 The tasks are stored in JSON format. Each task JSON file contains a dictionary with two fields:
 
@@ -31,6 +32,24 @@ A "grid" is a rectangular matrix (list of lists) of integers between 0 and 9 (in
 When looking at a task, a test-taker has access to inputs & outputs of the demonstration pairs, plus the input(s) of the test pair(s). The goal is to construct the output grid(s) corresponding to the test input grid(s), using 3 trials for each test input. "Constructing the output grid" involves picking the height and width of the output grid, then filling each cell in the grid with a symbol (integer between 0 and 9, which are visualized as colors). Only *exact* solutions (all cells match the expected answer) can be said to be correct.
 
 
+## Solution Description
+
+Solutions for the tasks are generalized in a way that, all solution file will have solve() and solve() will accept input value as ndarray and return the final result as a ndarray.
+
+- Solutions for the tasks should be runnable in the command line as 
+    `python <solution-filename> <json-filepath> <display_image-flag>`
+   
+
+where,
+    solution-filename   - name of the solution file to run
+    json-filepath       - path of the json file
+    display_image-flag  - optional parameter to show graphical representation of task. By default, value is False. 
+    
+For ex,
+      `python <solution_017c7c7b.py> <path/to/017c7c7b.json> <display_image>`
+     
+![test space](https://github.com/varadhodiyil/ARC/blob/dev/images/display_image_d13f3404.png?raw=true)
+    
 ## Usage of the testing interface
 
 The testing interface is located at `apps/testing_interface.html`. Open it in a web browser (Chrome recommended). It will prompt you to select a task JSON file.
