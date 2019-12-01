@@ -18,21 +18,21 @@ def solve(in_arr, out_arr=None, graphics=False):
                     for col in range(b):
                         result[(row_idx*a) + row][(col_idx*b) +
                                                   col] = in_arr[row][col]
-    print(result)
     if graphics:
         DisplayColourImage("Solution for 007bbfb7",
-                           in_arr, out_arr).display_data()
+                           in_arr, result).display_data()
     return result
 
 
-def main(path , graphics):
+def main(path, graphics):
 
     t = DataUtils(path)
     train, test = t.train, t.test
     for _t in train + test:
         inp, out = _t['input'], _t['output']
         inp, out = np.asarray(inp), np.asarray(out)
-        solve(inp, out,graphics)
+        print(solve(inp, out, graphics))
+        print()
 
     # print(t)
     # t._train()
@@ -45,6 +45,6 @@ if __name__ == "__main__":
         raise MyExceptions("Please Specify a valid file path")
     else:
         path = sys.argv[1]
-		
-        graphics = sys.argv[2] if len(sys.argv) ==3 else False
+
+        graphics = sys.argv[2] if len(sys.argv) == 3 else False
         main(path, graphics)
