@@ -15,7 +15,15 @@ class MyExceptions(Exception):
 class DataUtils():
     def __init__(self, in_file=None):
         self.in_file = in_file
-        self.read_data()
+        self.get_train_test()
+
+    @property
+    def train(self):
+        return self.__train
+
+    @property
+    def test(self):
+        return self.__test
 
     def read_data(self, in_file=None):
         if self.in_file is None and in_file is None:
@@ -27,6 +35,13 @@ class DataUtils():
         self.data = json.load(f)
         return self.data
 
-    def get_Train_Test(self):
-        train, test = self.data['train'], self.data['test']
-        return train, test
+    def get_train_test(self):
+        data = self.read_data()
+        self.__train, self.__test = data['train'], data['test']
+
+
+if __name__ == '__main__':
+
+    d = DataUtils(in_file="../data/training/d13f34041.json")
+
+    d.read_data()
