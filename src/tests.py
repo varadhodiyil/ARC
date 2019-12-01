@@ -1,7 +1,7 @@
 import unittest
 from numpy.testing import assert_array_equal
 import numpy as np
-from solution_007bbfb7 import solve as solve_007bbfb7 
+from solution_007bbfb7 import solve as solve_007bbfb7
 from Solution_67e8384a import ARC
 from solution_2281f1f4 import solve as solve_2281f1f4
 from solution_d13f3404 import solve as solve_d13f3404
