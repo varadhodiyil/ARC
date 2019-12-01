@@ -15,20 +15,18 @@ class MyExceptions(Exception):
 class DataUtils():
     def __init__(self, in_file=None):
         self.in_file = in_file
+        self.read_data()
 
     def read_data(self, in_file=None):
-        print(self.in_file, os.path.abspath(self.in_file))
         if self.in_file is None and in_file is None:
             raise MyExceptions("Please specify input file please")
         data_file = self.in_file if self.in_file else in_file
         if not os.path.exists(data_file):
             raise MyExceptions("File Doesn't exist")
         f = open(data_file, "r")
-        return json.load(f)
+        self.data = json.load(f)
+        return self.data
 
-
-if __name__ == '__main__':
-
-    d = DataUtils(in_file="../data/training/d13f34041.json")
-
-    d.read_data()
+    def get_Train_Test(self):
+        train, test = self.data['train'], self.data['test']
+        return train, test
